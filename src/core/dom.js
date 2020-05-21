@@ -1,12 +1,14 @@
 class Dom {
   constructor(selector) {
-    this.$el = typeof selector === 'string' 
-    ? document.querySelector(selector)
-    : selector
+    this.$el = typeof selector === 'string'
+      ? document.querySelector(selector)
+      : selector
   }
-  html (html) {
+
+  html(html) {
     if (typeof html === 'string') {
       this.$el.innerHTML = html
+      return this
     }
     return this.$el.outerHTML.trim()
   }
@@ -22,27 +24,46 @@ class Dom {
 
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback)
-
   }
 
-
   append(node) {
-
     if (node instanceof Dom) {
       node = node.$el
     }
 
     if (Element.prototype.append) {
       this.$el.append(node)
-    } else  {
+    } else {
       this.$el.appendChild(node)
     }
+
     return this
   }
+
+  get data() {
+    return this.$el.dataset
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object
+        .keys(styles)
+        .forEach(key => {
+          this.$el.style[key] = styles[key]
+        })
+  }
 }
-
-
-
 
 export function $(selector) {
   return new Dom(selector)

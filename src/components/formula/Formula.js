@@ -3,15 +3,13 @@ import {ExcelComponent} from '@core/ExcelComponent'
 export class Formula extends ExcelComponent {
   static className = 'excel__formula'
 
-
-  constructor ($root) {
+  constructor($root) {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'click']
     })
   }
 
- 
   toHTML() {
     return `
       <div class="info">fx</div>
@@ -20,14 +18,11 @@ export class Formula extends ExcelComponent {
   }
 
   onInput(event) {
-
-    console.log('FormulaL onINput', event.target.textContent.trim());
-    
+    console.log(this.$root)
+    console.log('Formula: onInput', event.target.textContent.trim())
   }
 
   onClick() {
-    console.log('work');
-    
+    console.log('mk')
   }
-
 }
